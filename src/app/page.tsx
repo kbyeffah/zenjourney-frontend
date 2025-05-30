@@ -51,7 +51,7 @@ export default function Home() {
   setTravelPlan(null);
 
   try {
-    console.log("Fetching from: https://zenjourney-backend2.onrender.com");
+    console.log("Fetching from: https://zenjourney-backend2.onrender.com/travel/plan");
     console.log("Request data:", formData);
 
     const auth = getAuth();
@@ -70,7 +70,7 @@ export default function Home() {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 60000);
 
-    const response = await fetch(`https://zenjourney-backend2.onrender.com`, {
+    const response = await fetch(`https://zenjourney-backend2.onrender.com/travel/plan`, {
       method: "POST",
       headers,
       body: JSON.stringify(formData),
