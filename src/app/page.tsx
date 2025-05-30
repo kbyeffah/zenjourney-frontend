@@ -8,28 +8,62 @@ import TravelPlanDisplay from "./components/TravelPlanDisplay";
 import ProtectedRoute from "@/app/components/ProtectedRoute";
 import { getAuth } from "firebase/auth";
 
-interface MustVisit {
+// Define interfaces for TravelPlan and related types
+export interface MustVisit {
   attraction: string;
   crowd_info: string;
   recommended_time: string;
 }
 
-interface DailyPlan {
+export interface LocalEvent {
+  name: string;
+  type: string;
+  duration: string;
+}
+
+export interface TravelTips {
+  morning_activity: string;
+  transport: string;
+  local_customs: string;
+}
+
+export interface DailyPlan {
   weather: string;
   breakfast: string;
   must_visit: MustVisit;
-  local_event: string;
+  local_event: LocalEvent;
   dinner: string;
-  hotel_suggestion: string;
-  travel_distance: string;
+  travel_tips: TravelTips;
 }
 
-interface TravelPlan {
+export interface EmergencyNumbers {
+  police: string;
+  ambulance: string;
+  tourist_helpline: string;
+}
+
+export interface GeneralTravelTips {
+  best_time_to_visit: string;
+  local_transportation: string;
+  currency: string;
+  language: string;
+  emergency_numbers: EmergencyNumbers;
+}
+
+export interface HotelSuggestion {
+  name: string;
+  rating: number;
+  price_per_night: number;
+  amenities: string[];
+  location: string;
+}
+
+export interface TravelPlan {
   destination: string;
   itinerary: { [key: string]: DailyPlan };
   estimated_cost: number;
-  hotel_suggestions: string[];
-  total_days: number;
+  hotel_suggestions: HotelSuggestion[];
+  travel_tips: GeneralTravelTips;
 }
 
 export default function Home() {
@@ -40,66 +74,66 @@ export default function Home() {
   const itemsPerPage = 3;
 
   const fetchTravelPlan = async (formData: {
-  destination: string;
-  start_date: string;
-  end_date: string;
-  budget: number;
-  preferences: string;
-}) => {
-  setLoading(true);
-  setError("");
-  setTravelPlan(null);
+    destination: string;
+    start_date: string;
+    end_date: string;
+    budget: number;
+    preferences: string;
+  }) => {
+    setLoading(true);
+    setError("");
+    setTravelPlan(null);
 
-  try {
-    console.log("Fetching from: https://zenjourney-backend2.onrender.com");
-    console.log("Request data:", formData);
+    try {
+      console.log("Fetching from: https://zenjourney-backend2.onrender.com/travel/plan");
+      console.log("Request data:", formData);
 
-    const auth = getAuth();
-    const user = auth.currentUser;
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-    };
+      const auth = getAuth();
+      const user = auth.currentUser;
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
 
-    if (user) {
-      const idToken = await user.getIdToken();
-      headers["Authorization"] = `Bearer ${idToken}`;
-    } else {
-      console.warn("No authenticated user, skipping Authorization header");
+      if (user) {
+        const idToken = await user.getIdToken();
+        headers["Authorization"] = `Bearer ${idToken}`;
+      } else {
+        console.warn("No authenticated user, skipping Authorization header");
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000);
+
+      const response = await fetch(`https://zenjourney-backend2.onrender.com/travel/plan`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(formData),
+        signal: controller.signal,
+        credentials: "include",
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Fetch failed:", { status: response.status, errorText });
+        throw new Error(`HTTP Error: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log("Response data:", data);
+      setTravelPlan(data);
+    } catch (err: any) {
+      console.error("Fetch error:", err);
+      setError(
+        err.name === "AbortError"
+          ? "Request timed out. Please try again."
+          : `Failed to fetch travel plan: ${err.message}. Ensure backend is running.`
+      );
+    } finally {
+      setLoading(false);
     }
-
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000);
-
-    const response = await fetch(`https://zenjourney-backend2.onrender.com`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(formData),
-      signal: controller.signal,
-      credentials: "include",
-    });
-
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Fetch failed:", { status: response.status, errorText });
-      throw new Error(`HTTP Error: ${response.status} - ${errorText}`);
-    }
-
-    const data = await response.json();
-    console.log("Response data:", data);
-    setTravelPlan(data);
-  } catch (err: any) {
-    console.error("Fetch error:", err);
-    setError(
-      err.name === "AbortError"
-        ? "Request timed out. Please try again."
-        : `Failed to fetch travel plan: ${err.message}. Ensure backend is running.`
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const handleSubmit = async (formData: {
     destination: string;
@@ -369,7 +403,9 @@ export default function Home() {
                                   </svg>
                                   <h5 className="font-semibold text-purple-400">Local Event</h5>
                                 </div>
-                                <p className="text-gray-200">{plan.local_event}</p>
+                                <p className="text-gray-200">{plan.local_event.name}</p>
+                                <p className="text-sm text-gray-400 mt-1">Type: {plan.local_event.type}</p>
+                                <p className="text-sm text-gray-400 mt-1">Duration: {plan.local_event.duration}</p>
                               </div>
                             </div>
 
@@ -383,6 +419,7 @@ export default function Home() {
                                   <h5 className="font-semibold text-green-400">Dining</h5>
                                 </div>
                                 <p className="text-gray-200">{plan.dinner}</p>
+                                <p className="text-gray-200 mt-1">Breakfast: {plan.breakfast}</p>
                               </div>
 
                               <div className="bg-gray-700/30 p-4 rounded-lg">
@@ -392,8 +429,9 @@ export default function Home() {
                                   </svg>
                                   <h5 className="font-semibold text-red-400">Travel Tips</h5>
                                 </div>
-                                <p className="text-gray-200">Distance: {plan.travel_distance}</p>
-                                <p className="text-gray-200">Hotel: {plan.hotel_suggestion}</p>
+                                <p className="text-gray-200">Morning Activity: {plan.travel_tips.morning_activity}</p>
+                                <p className="text-gray-200 mt-1">Transport: {plan.travel_tips.transport}</p>
+                                <p className="text-gray-200 mt-1">Local Customs: {plan.travel_tips.local_customs}</p>
                               </div>
                             </div>
                           </div>
@@ -438,24 +476,6 @@ export default function Home() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </button>
-                      </div>
-                    )}
-
-                    {travelPlan.hotel_suggestions && (
-                      <div className="mt-12">
-                        <h4 className="text-xl font-bold text-white mb-6 text-center">
-                          Recommended Hotels
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          {travelPlan.hotel_suggestions.map((hotel, index) => (
-                            <div
-                              key={index}
-                              className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 p-6 rounded-xl shadow-lg border border-gray-700/50"
-                            >
-                              <h5 className="font-bold text-white text-lg mb-2">{hotel}</h5>
-                            </div>
-                          ))}
-                        </div>
                       </div>
                     )}
                   </div>
