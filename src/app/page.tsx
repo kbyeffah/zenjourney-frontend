@@ -40,66 +40,66 @@ export default function Home() {
   const itemsPerPage = 3;
 
   const fetchTravelPlan = async (formData: {
-    destination: string;
-    start_date: string;
-    end_date: string;
-    budget: number;
-    preferences: string;
-  }) => {
-    setLoading(true);
-    setError("");
-    setTravelPlan(null);
+  destination: string;
+  start_date: string;
+  end_date: string;
+  budget: number;
+  preferences: string;
+}) => {
+  setLoading(true);
+  setError("");
+  setTravelPlan(null);
 
-    try {
-      console.log("Fetching from: /api/travel/plan");
-      console.log("Request data:", formData);
+  try {
+    console.log("Fetching from: https://zenjourney-backend2.onrender.com");
+    console.log("Request data:", formData);
 
-      const auth = getAuth();
-      const user = auth.currentUser;
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
-      };
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
 
-      if (user) {
-        const idToken = await user.getIdToken();
-        headers["Authorization"] = `Bearer ${idToken}`;
-      } else {
-        console.warn("No authenticated user, skipping Authorization header");
-      }
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000);
-
-      // Use the proxy path instead of direct backend URL
-      const response = await fetch(`/api/travel/plan`, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(formData),
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Fetch failed:", { status: response.status, errorText });
-        throw new Error(`HTTP Error: ${response.status} - ${errorText}`);
-      }
-
-      const data = await response.json();
-      console.log("Response data:", data);
-      setTravelPlan(data);
-    } catch (err: any) {
-      console.error("Fetch error:", err);
-      setError(
-        err.name === "AbortError"
-          ? "Request timed out. Please try again."
-          : `Failed to fetch travel plan: ${err.message}. Ensure backend is running.`
-      );
-    } finally {
-      setLoading(false);
+    if (user) {
+      const idToken = await user.getIdToken();
+      headers["Authorization"] = `Bearer ${idToken}`;
+    } else {
+      console.warn("No authenticated user, skipping Authorization header");
     }
-  };
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
+    const response = await fetch(`https://zenjourney-backend2.onrender.com`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(formData),
+      signal: controller.signal,
+      credentials: "include",
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Fetch failed:", { status: response.status, errorText });
+      throw new Error(`HTTP Error: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log("Response data:", data);
+    setTravelPlan(data);
+  } catch (err: any) {
+    console.error("Fetch error:", err);
+    setError(
+      err.name === "AbortError"
+        ? "Request timed out. Please try again."
+        : `Failed to fetch travel plan: ${err.message}. Ensure backend is running.`
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleSubmit = async (formData: {
     destination: string;
