@@ -11,20 +11,20 @@ const SignupForm = () => {
     e.preventDefault();
     try {
       await signUp(email, password);
-      // Redirect or notify success
+      alert('Signup successful!');
     } catch (err: any) {
       setError(err.message);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
-        className="border px-3 py-2 w-full rounded"
+        className="w-full p-2 border rounded"
         required
       />
       <input
@@ -32,11 +32,11 @@ const SignupForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
-        className="border px-3 py-2 w-full rounded"
+        className="w-full p-2 border rounded"
         required
       />
       {error && <p className="text-red-500">{error}</p>}
-      <button type="submit" className="bg-green-600 text-white py-2 px-4 rounded">
+      <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
         Sign Up
       </button>
     </form>

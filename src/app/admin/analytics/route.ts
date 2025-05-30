@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { adminAuth } from '@/app/lib/firebase-admin';
+import adminAuth from '@/app/lib/firebase-admin';
 import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     // Verify the session cookie
     const decodedToken = await adminAuth.verifySessionCookie(sessionCookie);
     
-    // Check if user is admin
+    // Check if user is admin (adjust logic as needed)
     if (!decodedToken.admin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -30,7 +30,6 @@ export async function GET(request: Request) {
       common_questions: [
         { question: "How do I reset my password?", count: 45 },
         { question: "What are your business hours?", count: 32 },
-        // ... more questions
       ]
     };
 

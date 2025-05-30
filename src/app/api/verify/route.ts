@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { adminAuth } from '@/app/lib/firebase-admin';
+import adminAuth from '@/app/lib/firebase-admin';
 
 export async function GET(request: Request) {
   try {
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     // Verify the session cookie
     const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie, true);
     
-    // Check if user is admin (you can customize this based on your needs)
+    // Check if user is admin (customize as needed)
     const isAdmin = decodedClaims.email?.endsWith('@admin.com') || false;
 
     return NextResponse.json({
