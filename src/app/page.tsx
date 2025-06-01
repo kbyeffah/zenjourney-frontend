@@ -229,48 +229,48 @@ export default function Home() {
 
   return (
     <ProtectedRoute>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-black">
         {/* Hero Section */}
-        <section className="relative py-20 px-4 sm:px-6 lg:py-32 lg:px-8">
+        <section className="relative py-24 px-4 sm:px-6 lg:py-32 lg:px-8">
           <div className="absolute inset-0 overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?q=80&w=2000&auto=format&fit=crop"
               alt="Travel background"
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover opacity-30"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/60"></div>
           </div>
 
           <div className="relative max-w-7xl mx-auto">
             <div className="text-center">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">
-                Your Journey, <span className="text-blue-400">Intelligently Planned</span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight">
+                Plan Your <span className="text-teal-400">Epic Adventure</span>
               </h1>
-              <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-300">
-                ZenJourney uses advanced AI agents to create personalized travel experiences tailored just for you.
+              <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-300 leading-relaxed">
+                Discover personalized travel plans crafted by advanced AI technology
               </p>
 
-              <div className="mt-10">
-                <form onSubmit={handleSubmitSearch} className="max-w-3xl mx-auto bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="mt-12">
+                <form onSubmit={handleSubmitSearch} className="max-w-4xl mx-auto bg-gray-900/90 p-8 rounded-2xl shadow-2xl border border-gray-800/50">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
-                      <label htmlFor="destination" className="block text-sm font-medium text-gray-200 mb-1">
+                      <label htmlFor="destination" className="block text-sm font-medium text-gray-300 mb-2">
                         Destination
                       </label>
                       <input
                         type="text"
                         id="destination"
                         name="destination"
-                        placeholder="Where would you like to go?"
+                        placeholder= "What’s your destination?"
                         value={searchParams.destination}
                         onChange={handleChange}
-                        className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                        className="w-full p-4 bg-gray-800/50 text-white border border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-gray-500 transition-all duration-300"
                         required
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="budget" className="block text-sm font-medium text-gray-200 mb-1">
+                      <label htmlFor="budget" className="block text-sm font-medium text-gray-300 mb-2">
                         Budget
                       </label>
                       <select
@@ -278,26 +278,26 @@ export default function Home() {
                         name="budget"
                         value={searchParams.budget}
                         onChange={handleChange}
-                        className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-4 bg-gray-800/50 text-white border border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300"
                         required
                       >
-                        <option value="" className="bg-gray-700 text-white">
+                        <option value="" className="bg-gray-800 text-white">
                           Select your budget
                         </option>
-                        <option value="budget" className="bg-gray-700 text-white">
+                        <option value="budget" className="bg-gray-800 text-white">
                           Budget ($)
                         </option>
-                        <option value="moderate" className="bg-gray-700 text-white">
+                        <option value="moderate" className="bg-gray-800 text-white">
                           Moderate ($$)
                         </option>
-                        <option value="luxury" className="bg-gray-700 text-white">
+                        <option value="luxury" className="bg-gray-800 text-white">
                           Luxury ($$$)
                         </option>
                       </select>
                     </div>
 
                     <div>
-                      <label htmlFor="days" className="block text-sm font-medium text-gray-200 mb-1">
+                      <label htmlFor="days" className="block text-sm font-medium text-gray-300 mb-2">
                         Trip Duration
                       </label>
                       <input
@@ -309,18 +309,18 @@ export default function Home() {
                         max="30"
                         value={searchParams.days}
                         onChange={handleChange}
-                        className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                        className="w-full p-4 bg-gray-800/50 text-white border border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-gray-500 transition-all duration-300"
                         required
                       />
                     </div>
                   </div>
 
-                  <div className="mt-6">
+                  <div className="mt-8">
                     <button
                       type="submit"
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
+                      className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
                     >
-                      Plan My Journey
+                      Plan My Adventure
                     </button>
                   </div>
                 </form>
@@ -331,107 +331,107 @@ export default function Home() {
 
         {/* Travel Plan Results */}
         {(loading || error || travelPlan) && (
-          <section className="py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-                <h2 className="text-2xl font-bold text-white mb-6">Your Travel Plan</h2>
+          <section className="py-16 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-5xl mx-auto">
+              <div className="bg-gray-900/90 p-8 rounded-2xl shadow-xl border border-gray-800/50">
+                <h2 className="text-3xl font-bold text-white mb-8">Your Travel Itinerary</h2>
 
                 {error && (
-                  <div className="p-4 mb-4 bg-red-900/50 border border-red-500 text-red-200 rounded-lg">
-                    <p className="mb-2">{error}</p>
+                  <div className="p-6 mb-6 bg-red-900/30 border border-red-700/50 text-red-300 rounded-xl">
+                    <p className="mb-3 font-medium">{error}</p>
                     <p className="text-sm">
-                      Make sure the backend agents are running. You can start them with:
-                      <code className="block bg-gray-800 p-2 mt-1 rounded text-xs">
+                      Ensure backend agents are running. Start them with:
+                      <code className="block bg-gray-800/50 p-3 mt-2 rounded-lg text-xs font-mono text-gray-300">
                         source venv/bin/activate<br />
                         python travel_planning_agent.py
                       </code>
                     </p>
-                    <div className="mt-4 text-center">
+                    <div className="mt-6 text-center">
                       <button
                         onClick={() => window.location.href = "/#advanced-form"}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                        className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-lg"
                       >
-                        Try Advanced Planning Form
+                        Try Detailed Planning
                       </button>
                     </div>
                   </div>
                 )}
 
                 {loading && (
-                  <div className="flex justify-center items-center py-12">
-                    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+                  <div className="flex justify-center items-center py-16">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-teal-600"></div>
                   </div>
                 )}
 
                 {travelPlan && !loading && (
                   <div>
-                    <div className="mb-8 text-center">
-                      <h3 className="text-2xl font-bold text-white mb-2">{travelPlan.destination}</h3>
-                      <p className="text-green-400 font-medium text-lg">
+                    <div className="mb-10 text-center">
+                      <h3 className="text-3xl font-bold text-white mb-3">{travelPlan.destination}</h3>
+                      <p className="text-amber-400 font-medium text-xl">
                         Estimated Cost: ${travelPlan.estimated_cost.toFixed(2)}
                       </p>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                       {currentDays.map(([day, plan]) => (
-                        <div key={day} className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 p-6 rounded-xl shadow-lg border border-gray-700/50">
-                          <div className="flex items-center justify-between mb-4">
-                            <h4 className="text-xl font-bold text-white">{day}</h4>
-                            <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">
+                        <div key={day} className="bg-gray-900 p-8 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-800/50">
+                          <div className="flex items-center justify-between mb-6">
+                            <h4 className="text-2xl font-bold text-white">{day}</h4>
+                            <span className="px-4 py-2 bg-teal-900/50 text-teal-400 rounded-full text-sm font-medium">
                               {plan.weather}
                             </span>
                           </div>
 
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-4">
-                              <div className="bg-gray-700/30 p-4 rounded-lg">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="space-y-6">
+                              <div className="bg-gray-800/50 p-6 rounded-xl hover:bg-gray-800/70 transition-all duration-200">
+                                <div className="flex items-center gap-3 mb-3">
+                                  <svg className="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                   </svg>
-                                  <h5 className="font-semibold text-blue-400">Main Attraction</h5>
+                                  <h5 className="font-semibold text-amber-400 text-lg">Main Attraction</h5>
                                 </div>
-                                <p className="text-gray-200">{plan.must_visit.attraction}</p>
-                                <p className="text-sm text-gray-400 mt-1">{plan.must_visit.crowd_info}</p>
+                                <p className="text-gray-200 font-medium">{plan.must_visit.attraction}</p>
+                                <p className="text-sm text-gray-400 mt-2">{plan.must_visit.crowd_info}</p>
                                 <p className="text-sm text-gray-400 mt-1">Recommended: {plan.must_visit.recommended_time}</p>
                               </div>
 
-                              <div className="bg-gray-700/30 p-4 rounded-lg">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <svg className="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                              <div className="bg-gray-800/50 p-6 rounded-xl hover:bg-gray-800/70 transition-all duration-200">
+                                <div className="flex items-center gap-3 mb-3">
+                                  <svg className="w-6 h-6 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                                   </svg>
-                                  <h5 className="font-semibold text-purple-400">Local Event</h5>
+                                  <h5 className="font-semibold text-teal-400 text-lg">Local Event</h5>
                                 </div>
-                                <p className="text-gray-200">{plan.local_event.name}</p>
-                                <p className="text-sm text-gray-400 mt-1">Type: {plan.local_event.type}</p>
+                                <p className="text-gray-200 font-medium">{plan.local_event.name}</p>
+                                <p className="text-sm text-gray-400 mt-2">Type: {plan.local_event.type}</p>
                                 <p className="text-sm text-gray-400 mt-1">Duration: {plan.local_event.duration}</p>
                               </div>
                             </div>
 
-                            <div className="space-y-4">
-                              <div className="bg-gray-700/30 p-4 rounded-lg">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="space-y-6">
+                              <div className="bg-gray-800/50 p-6 rounded-xl hover:bg-gray-800/70 transition-all duration-200">
+                                <div className="flex items-center gap-3 mb-3">
+                                  <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                                     <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
                                   </svg>
-                                  <h5 className="font-semibold text-green-400">Dining</h5>
+                                  <h5 className="font-semibold text-green-400 text-lg">Dining</h5>
                                 </div>
-                                <p className="text-gray-200">{plan.dinner}</p>
-                                <p className="text-gray-200 mt-1">Breakfast: {plan.breakfast}</p>
+                                <p className="text-gray-200 font-medium">{plan.dinner}</p>
+                                <p className="text-gray-200 font-medium mt-2">Breakfast: {plan.breakfast}</p>
                               </div>
 
-                              <div className="bg-gray-700/30 p-4 rounded-lg">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <svg className="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                              <div className="bg-gray-800/50 p-6 rounded-xl hover:bg-gray-800/70 transition-all duration-200">
+                                <div className="flex items-center gap-3 mb-3">
+                                  <svg className="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                                   </svg>
-                                  <h5 className="font-semibold text-red-400">Travel Tips</h5>
+                                  <h5 className="font-semibold text-red-400 text-lg">Travel Tips</h5>
                                 </div>
-                                <p className="text-gray-200">Morning Activity: {plan.travel_tips.morning_activity}</p>
-                                <p className="text-gray-200 mt-1">Transport: {plan.travel_tips.transport}</p>
-                                <p className="text-gray-200 mt-1">Local Customs: {plan.travel_tips.local_customs}</p>
+                                <p className="text-gray-200 font-medium">Morning Activity: {plan.travel_tips.morning_activity}</p>
+                                <p className="text-gray-200 font-medium mt-2">Transport: {plan.travel_tips.transport}</p>
+                                <p className="text-gray-200 font-medium mt-2">Local Customs: {plan.travel_tips.local_customs}</p>
                               </div>
                             </div>
                           </div>
@@ -440,11 +440,11 @@ export default function Home() {
                     </div>
 
                     {totalPages > 1 && (
-                      <div className="flex justify-center items-center mt-8 space-x-4">
+                      <div className="flex justify-center items-center mt-10 space-x-4">
                         <button
                           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                           disabled={currentPage === 1}
-                          className="px-6 py-2 bg-gray-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition-colors flex items-center gap-2"
+                          className="px-6 py-3 bg-gray-800 text-gray-300 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700 transition-all duration-300 shadow-md flex items-center gap-2"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -456,11 +456,11 @@ export default function Home() {
                             <button
                               key={page}
                               onClick={() => setCurrentPage(page)}
-                              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                              className={`w-12 h-12 rounded-xl flex items-center justify-center font-medium ${
                                 currentPage === page
-                                  ? "bg-blue-500 text-white"
-                                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                              } transition-colors`}
+                                  ? "bg-teal-600 text-white"
+                                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                              } transition-all duration-300 shadow-md`}
                             >
                               {page}
                             </button>
@@ -469,7 +469,7 @@ export default function Home() {
                         <button
                           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                           disabled={currentPage === totalPages}
-                          className="px-6 py-2 bg-gray-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition-colors flex items-center gap-2"
+                          className="px-6 py-3 bg-gray-800 text-gray-300 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700 transition-all duration-300 shadow-md flex items-center gap-2"
                         >
                           Next
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -485,50 +485,50 @@ export default function Home() {
           </section>
         )}
 
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-900">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-950">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-white">How ZenJourney Works</h2>
-              <p className="mt-4 max-w-2xl mx-auto text-gray-400">
-                Our intelligent multi-agent system coordinates to create the perfect travel experience
+              <h2 className="text-4xl font-bold text-white">How TripSage Works</h2>
+              <p className="mt-4 max-w-2xl mx-auto text-gray-400 text-lg">
+                Our intelligent multi-agent system crafts seamless travel experiences
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
-                <div key={index} className="bg-gray-800 p-6 rounded-lg shadow-md">
-                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-5">
-                    {feature.icon}
+                <div key={index} className="bg-gray-900 p-8 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-800/50">
+                  <div className="w-14 h-14 bg-teal-600 rounded-full flex items-center justify-center mb-6">
+                    <div className="text-white">{feature.icon}</div>
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
-                  <p className="text-gray-400">{feature.description}</p>
+                  <h3 className="text-xl font-semibold text-white mb-4">{feature.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{feature.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-white">Popular Destinations</h2>
-              <p className="mt-4 max-w-2xl mx-auto text-gray-400">
-                Discover amazing places already optimized by our AI agents
+              <h2 className="text-4xl font-bold text-white">Popular Destinations</h2>
+              <p className="mt-4 max-w-2xl mx-auto text-gray-400 text-lg">
+                Explore stunning locations optimized by our AI agents
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {popularDestinations.map((destination, index) => (
-                <div key={index} className="group relative overflow-hidden rounded-lg shadow-lg h-72">
+                <div key={index} className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 h-80">
                   <img
                     src={destination.image}
                     alt={destination.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-4">
-                    <h3 className="text-xl font-bold text-white">{destination.name}</h3>
-                    <p className="text-gray-300 text-sm mt-1">{destination.description}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 p-6">
+                    <h3 className="text-2xl font-bold text-white">{destination.name}</h3>
+                    <p className="text-gray-300 text-sm mt-2">{destination.description}</p>
                   </div>
                 </div>
               ))}
@@ -536,29 +536,29 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-800 to-blue-600">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-teal-800 to-teal-600">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-6">Ready to Start Your Journey?</h2>
-            <p className="text-white/80 mb-8 text-lg">
-              Let our intelligent agents plan your perfect trip. Experience travel planning reimagined.
+            <h2 className="text-4xl font-bold text-white mb-6">Ready to Explore?</h2>
+            <p className="text-gray-200 mb-8 text-lg leading-relaxed">
+              Let our AI agents design your dream vacation with unparalleled precision
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/about" className="px-8 py-3 bg-white text-blue-700 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+              <Link href="/about" className="px-8 py-4 bg-white text-teal-800 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 shadow-md hover:shadow-lg">
                 Learn More
               </Link>
-              <Link href="/contact" className="px-8 py-3 bg-transparent border border-white text-white rounded-lg font-medium hover:bg-white/10 transition-colors">
+              <Link href="/contact" className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-xl font-semibold hover:bg-teal-700/50 transition-all duration-300">
                 Contact Us
               </Link>
             </div>
           </div>
         </section>
 
-        <section id="advanced-form" className="py-16 px-4 sm:px-6 lg:px-8">
+        <section id="advanced-form" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white">Detailed Travel Planning</h2>
-              <p className="mt-4 max-w-2xl mx-auto text-gray-400">
-                Get a comprehensive travel plan with detailed daily activities and recommendations
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white">Detailed Travel Planning</h2>
+              <p className="mt-4 max-w-2xl mx-auto text-gray-400 text-lg">
+                Create a comprehensive travel plan with tailored daily activities
               </p>
             </div>
 
