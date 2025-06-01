@@ -7,7 +7,7 @@ import { AuthProvider } from '@/app/components/AuthProvider'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ZenJourney - Travel Planning",
+  title: "TripSage - Travel Planning",
   description: "Plan your next trip with our AI-powered travel planner",
 };
 
@@ -24,14 +24,14 @@ export default function RootLayout({
           {/* Include the NavBar */}
           <header className="py-4 px-8 border-b border-gray-800">
             <div className="container mx-auto flex justify-between items-center">
-              <h1 className="text-2xl font-bold">ZenJourney</h1>
+              <h1 className="text-2xl font-bold">TripSage</h1>
               <NavBar /> {/* Place NavBar here */}
             </div>
           </header>
           {children}
           <footer className="py-6 px-8 border-t border-gray-800 text-center text-gray-400">
             <div className="container mx-auto">
-              <p>© {new Date().getFullYear()} ZenJourney. Powered by uAgents and Next.js</p>
+              <p>© {new Date().getFullYear()} TripSage. Powered by uAgents and Next.js</p>
             </div>
           </footer>
         </div>
